@@ -32,4 +32,4 @@ jobs:
         run: pnpm install
 
       - name: Run Benchmarks
-        run: node ./rpc-bench.js bench --testdata testdataFull.json
+        run: node ./rpc-bench.js bench --testdata testdata.json
