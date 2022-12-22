@@ -1,0 +1,35 @@
+name: Benchmark
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Benchmark
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Cache pnpm modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
+      - name: Install Workspace Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: pnpm install
+
+      - name: Run Benchmarks
+        run: node ./rpc-bench.js bench --testdata testdataFull.json

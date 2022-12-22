@@ -1,0 +1,15 @@
+{
+    "llama": "https://eth.llamarpc.com",
+    "pokt": "https://eth-rpc.gateway.pokt.network",
+    "1rpc": "https://1rpc.io/eth",
+    "ankr1": "https://eth.public-rpc.com",
+    "ankr2": "https://rpc.ankr.com/eth",
+    "infura": "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+    "alchemy": "https://eth-mainnet.g.alchemy.com/v2/jz1AlVEXLDxlzNMcKDg9To03aBnOssyH",
+    "cloudflare": "https://cloudflare-eth.com/",
+    "nodesmith": "https://ethereum.api.nodesmith.io/v1/mainnet/jsonrpc",
+    "bloxroute": "https://singapore.rpc.blxrbdn.com",
+    "builder0x69": "https://rpc.builder0x69.io",
+    "publicnode": "https://ethereum.publicnode.com",
+    "zmok": "https://api.zmok.io/mainnet/oaen6dy8ff6hju9k"
+}
