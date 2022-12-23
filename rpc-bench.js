@@ -184,8 +184,7 @@ async function bench(args){
       let startTime2 = Date.now();
 
       for (let i = 0; i < testdata.length; i++) {
-        const add = testdata[i];
-        let resp = await getContractValue(rpcUrl, add);
+        let resp = await getContractValue(rpcUrl);
         if (resp) {
           success2 += 1
         }
