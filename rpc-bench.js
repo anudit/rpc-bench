@@ -42,6 +42,94 @@ async function getBalance(rpcUrl, userAddress){
   }
 }
 
+function randomPriceFeedContract(){
+  let arr = [
+    "0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8",
+  "0xc929ad75B72593967DE83E7F7Cda0493458261D9",
+  "0x139C8512Cde1778e9b9a8e721ce1aEbd4dD43587",
+  "0x6Df09E975c830ECae5bd4eD9d90f3A95a4f88012",
+  "0x547a514d5e3769680Ce22B2361c10Ea13619e8a9",
+  "0xAE48c91dF1fE419994FFDa27da09D5aC69c30f55",
+  "0x231e764B44b2C1b7Ca171fa8021A24ed520Cde10",
+  "0x194a9AaF2e0b67c35915cD01101585A33Fe25CAa",
+  "0xc355e4C0B3ff4Ed0B49EaACD55FE29B311f42976",
+  "0x89c7926c7c15fD5BFDB1edcFf7E7fC8283B578F6",
+  "0x8994115d287207144236c13Be5E2bDbf6357D9Fd",
+  "0x7eed379bf00005CfeD29feD4009669dE9Bcc21ce",
+  "0x8f83670260F8f7708143b836a2a6F11eF0aBac01",
+  "0xc7de7f4d4C9c991fF62a07D18b3E31e349833A18",
+  "0xD10aBbC76679a20055E167BB80A24ac851b37056",
+  "0xc40ec815A2f8eb9912BD688d3bdE6B6D50A37ff2",
+  "0x15c8eA24Ba2d36671Fa22aD4Cff0a8eafe144352",
+  "0xDC4BDB458C6361093069Ca2aD30D74cc152EdC75",
+  "0x77F9710E7d0A19669A13c055F62cd80d313dF022",
+  "0xFF3EEb22B5E3dE6e705b44749C2559d704923FD7",
+  "0x58921Ac140522867bf50b9E009599Da0CA4A2379",
+  "0x66a47b7206130e6FF64854EF0E1EDfa237E65339",
+  "0xC1438AA3823A6Ba0C159CfA8D98dF5A994bA120b",
+  "0xdF2917806E30300537aEB49A7663062F4d1F2b5F",
+  "0x0BDb051e10c9718d1C29efbad442E88D38958274",
+  "0x0d16d4528239e9ee52fa531af613AcdB23D88c94",
+  "0x9F0F69428F923D6c95B781F89E165C9b2df9789D",
+  "0x7b33EbfA52F215a30FaD5a71b3FeE57a4831f1F0",
+  "0xc546d2d06144F9DD42815b8bA46Ee7B8FcAFa4a2",
+  "0x14e613AC84a31f709eadbdF89C6CC390fDc9540A",
+  "0xCf61d1841B178fe82C8895fe60c2EDDa08314416",
+  "0x1E6cF0D433de4FE882A437ABC654F58E1e78548c",
+  "0xdd22A54e05410D8d1007c38b5c7A3eD74b855281",
+  "0x971E8F1B779A5F1C36e1cd7ef44Ba1Cc2F5EeE0f",
+  "0xdeb288F737066589598e9214E782fa5A8eD689e8",
+  "0x614715d2Af89E6EC99A233818275142cE88d1Cfd",
+  "0x833D8Eb16D306ed1FbB5D7A2E019e106B960965A",
+  "0xE95CDc33E1F5BfE7eB26f45E29C6C9032B97db7F",
+  "0xa34317DB73e77d453b1B8d04550c44D10e981C8e",
+  "0xEb0adf5C06861d6c07174288ce4D0a8128164003",
+  "0xF017fcB346A1885194689bA23Eff2fE6fA5C483b",
+  "0x75FbD83b4bd51dEe765b2a01e8D3aa1B020F9d33",
+  "0x9ae96129ed8FE0C707D6eeBa7b90bB1e139e543e",
+  "0x449d117117838fFA61263B61dA6301AA2a88B13A",
+  "0xeF8A4aF35cd47424672E3C590aBD37FBB7A7759a",
+  "0x1B39Ee86Ec5979ba5C322b826B3ECb8C79991699",
+  "0xdbd020CAeF83eFd542f4De03e3cF0C28A4428bd5",
+  "0x82597CFE6af8baad7c0d441AA82cbC3b51759607",
+  "0x00Cb80Cf097D9aA9A3779ad8EE7cF98437eaE050",
+  "0x8a12Be339B0cD1829b91Adc01977caa5E9ac121e",
+  "0xCd627aA160A6fA45Eb793D19Ef54f5062F20f33f",
+  "0x9e37a8Ee3bFa8eD6783Db031Dc458d200b226074",
+  "0x0a1d1b9847d602e789be38B802246161FFA24930",
+  "0xC9CbF687f43176B302F03f5e58470b77D07c61c6",
+  "0xd962fC30A72A84cE50161031391756Bf2876Af5D"
+  ]
+
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+async function getContractValue(rpcUrl){
+  try {
+
+    let data = await fetch(rpcUrl, {
+      "method": "POST",
+      "headers": {
+        "accept": "*/*",
+        "content-type": "application/json",
+      },
+      "body": JSON.stringify({
+        id: 44,
+        jsonrpc: "2.0",
+        method: "eth_call",
+        params: [{
+          data: "0xfeaf968c",
+          to: randomPriceFeedContract()
+        }, "latest"]
+      })
+    }).then(e=>e.json()).then(e=>e.result);
+
+    return Boolean(data);
+  } catch (error) {
+    return false;
+  }
+}
+
 async function bench(args){
 
   if (args.mode == 'sequential'){
@@ -61,8 +149,9 @@ async function bench(args){
       columnDefault: {
           width: 14
       },
-      columnCount: 4,
+      columnCount: 5,
       columns: [
+          { alignment: 'center' },
           { alignment: 'center' },
           { alignment: 'center' },
           { alignment: 'center' },
@@ -71,12 +160,13 @@ async function bench(args){
     });
 
     stream.write(
-      ["Name", "Success Rate", "Total Time", "Avg Time /req"]
+      ["Name", "Success Rate", "Total Time", "eth_getBalance", "eth_call"]
     )
 
     for(rpcName in rpcs){
       const rpcUrl = rpcs[rpcName];
       let total  = testdata.length;
+
       let success = 0;
       let startTime = Date.now();
 
@@ -90,12 +180,26 @@ async function bench(args){
 
       let endTime = Date.now();
 
+      let success2 = 0;
+      let startTime2 = Date.now();
+
+      for (let i = 0; i < testdata.length; i++) {
+        const add = testdata[i];
+        let resp = await getContractValue(rpcUrl, add);
+        if (resp) {
+          success2 += 1
+        }
+      }
+
+      let endTime2 = Date.now();
+
       stream.write(
         [
           rpcName,
-          (success/total*100).toFixed(2) + '%',
+          (((success+success2)/(total*2))*100).toFixed(2) + '%',
           countdown(Math.floor((endTime-startTime)/1000)),
-          ((endTime-startTime)/total).toFixed(2)+'ms'
+          ((endTime-startTime)/total).toFixed(2)+'ms',
+          ((endTime2-startTime2)/total).toFixed(2)+'ms'
         ]
       )
 
