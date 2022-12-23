@@ -197,7 +197,7 @@ async function bench(args){
         [
           rpcName,
           (((success+success2)/(total*2))*100).toFixed(2) + '%',
-          countdown(Math.floor((endTime-startTime)/1000)),
+          countdown(Math.floor(((endTime-startTime)+(endTime2-startTime2))/1000)),
           ((endTime-startTime)/total).toFixed(2)+'ms',
           ((endTime2-startTime2)/total).toFixed(2)+'ms'
         ]
