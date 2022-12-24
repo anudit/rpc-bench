@@ -1,6 +1,22 @@
 const { readFileSync } = require('fs');
 const ethers = require("ethers");
-const { createStream } = require('table');
+const { table } = require('table');
+
+const tableConfig = {
+  columnDefault: {
+      width: 14
+  },
+  columns: [
+      { alignment: 'center', width: 5 },
+      { alignment: 'center' },
+      { alignment: 'center' },
+      { alignment: 'center' },
+      { alignment: 'center' }
+  ]
+}
+const tableHeader = ["Rank", "Name", "Success Rate", "Total Time", "Avg Time/req"]
+
+// Utils
 
 function countdown(s) {
 
@@ -19,27 +35,35 @@ function countdown(s) {
 
 }
 
-async function getBalance(rpcUrl, userAddress){
-  try {
+async function testRunner(name, addresses, fn, rpc){
 
-    let balance = await fetch(rpcUrl, {
-      "method": "POST",
-      "headers": {
-        "accept": "*/*",
-        "content-type": "application/json",
-      },
-      "body": JSON.stringify({
-        id: 44,
-        jsonrpc: "2.0",
-        method: "eth_getBalance",
-        params: [userAddress, "latest"]
-      })
-    }).then(e=>e.json()).then(e=>parseFloat(ethers.utils.formatEther(e.result)));
+  let total = addresses.length;
+  let success = 0;
+  let startTime = Date.now();
 
-    return balance > 0;
-  } catch (error) {
-    return false;
+  for (let i = 0; i < addresses.length; i++) {
+    const add = addresses[i];
+    let resp = await fn.apply(this, [rpc, add]);
+
+    if (resp) {
+      success += 1
+    }
   }
+
+  let endTime = Date.now();
+
+  let retData = {
+    name,
+    success,
+    startTime,
+    endTime,
+    total,
+    avgTime: (endTime - startTime)/total
+  }
+
+  console.log(`🟢 ${name}/${fn?.name} Complete.`, retData?.avgTime);
+
+  return retData
 }
 
 function randomPriceFeedContract(){
@@ -104,7 +128,60 @@ function randomPriceFeedContract(){
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-async function getContractValue(rpcUrl){
+function parseTestData(testData){
+
+  let cleanedRes = [];
+
+  for (let i = 0; i < testData.length; i++) {
+    const {name, success, startTime, endTime, total} = testData[i];
+
+    cleanedRes.push([
+      name,
+      ((success/total)*100).toFixed(2) + '%',
+      countdown(Math.floor((endTime-startTime)/1000)),
+      ((endTime-startTime)/total)
+    ])
+
+  }
+
+  return cleanedRes
+  .sort((a, b)=>a[3] - b[3])
+  .map((e, ind)=>{
+    let arr = e;
+    arr[3] = arr[3].toFixed(2) + 'ms'
+    return [`#${ind+1}`].concat(arr);
+  })
+
+}
+
+
+// Test Functions
+
+async function getBalance(rpcUrl, userAddress){
+  try {
+
+    let balance = await fetch(rpcUrl, {
+      "method": "POST",
+      "headers": {
+        "accept": "*/*",
+        "content-type": "application/json",
+      },
+      "body": JSON.stringify({
+        id: 44,
+        jsonrpc: "2.0",
+        method: "eth_getBalance",
+        params: [userAddress, "latest"]
+      })
+    }).then(e=>e.json()).then(e=>parseFloat(ethers.utils.formatEther(e.result)));
+
+    return balance > 0;
+  } catch (error) {
+    return false;
+  }
+
+}
+
+async function getContractValue(rpcUrl, add){
   try {
 
     let data = await fetch(rpcUrl, {
@@ -138,71 +215,49 @@ async function bench(args){
 
     let rpcs = readFileSync(args.config, {encoding:'utf8', flag:'r'});
     rpcs = JSON.parse(rpcs);
-    // console.log(rpcs);
 
     let testdata = readFileSync(args.testdata, {encoding:'utf8', flag:'r'});
     testdata = JSON.parse(testdata);
     testdata = testdata.map(e=>e?.address);
     console.log('Test Data Size:', testdata.length);
 
-    const stream = createStream({
-      columnDefault: {
-          width: 14
-      },
-      columnCount: 5,
-      columns: [
-          { alignment: 'center' },
-          { alignment: 'center' },
-          { alignment: 'center' },
-          { alignment: 'center' },
-          { alignment: 'center' }
-      ]
-    });
 
-    stream.write(
-      ["Name", "Success Rate", "Total Time", "eth_getBalance", "eth_call"]
-    )
+    let promiseArray = [];
 
     for(rpcName in rpcs){
       const rpcUrl = rpcs[rpcName];
-      let total  = testdata.length;
-
-      let success = 0;
-      let startTime = Date.now();
-
-      for (let i = 0; i < testdata.length; i++) {
-        const add = testdata[i];
-        let resp = await getBalance(rpcUrl, add);
-        if (resp) {
-          success += 1
-        }
-      }
-
-      let endTime = Date.now();
-
-      let success2 = 0;
-      let startTime2 = Date.now();
-
-      for (let i = 0; i < testdata.length; i++) {
-        let resp = await getContractValue(rpcUrl);
-        if (resp) {
-          success2 += 1
-        }
-      }
-
-      let endTime2 = Date.now();
-
-      stream.write(
-        [
-          rpcName,
-          (((success+success2)/(total*2))*100).toFixed(2) + '%',
-          countdown(Math.floor(((endTime-startTime)+(endTime2-startTime2))/1000)),
-          ((endTime-startTime)/total).toFixed(2)+'ms',
-          ((endTime2-startTime2)/total).toFixed(2)+'ms'
-        ]
-      )
-
+      promiseArray.push(testRunner(rpcName, testdata, getBalance, rpcUrl))
     }
+
+    let results = await Promise.allSettled(promiseArray);
+    results = results.map(e=>e?.value);
+    results = parseTestData(results);
+
+    console.log("### Benchmarking `eth_getBalance`");
+    console.log(table(
+      [tableHeader].concat(results),
+      tableConfig
+    ));
+
+
+    promiseArray = [];
+
+    for(rpcName in rpcs){
+      const rpcUrl = rpcs[rpcName];
+      promiseArray.push(testRunner(rpcName, testdata, getContractValue, rpcUrl))
+    }
+
+    results = await Promise.allSettled(promiseArray);
+    results = results.map(e=>e?.value);
+    results = parseTestData(results);
+
+    console.log("### Benchmarking `eth_call`");
+    console.log(table(
+      [tableHeader].concat(results),
+      tableConfig
+    ));
+
+
   }
   else if (args.mode == 'parallel'){
     console.log('In Prog');

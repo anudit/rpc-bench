@@ -4,6 +4,7 @@
   "description": "",
   "main": "rpc-bench.js",
   "scripts": {
+    "benchQuick": "node ./rpc-bench.js bench -t testdataHalf.json",
     "bench": "node ./rpc-bench.js bench"
   },
   "keywords": [],
