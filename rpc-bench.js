@@ -1,6 +1,10 @@
-const { readFileSync } = require('fs');
-const ethers = require("ethers");
-const { table } = require('table');
+import { readFileSync } from 'fs';
+import ethers from "ethers";
+import { table } from 'table';
+import { getBalancesForEthereumAddress } from 'ethereum-erc20-token-balances-multicall';
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers'
+import { tokenList } from './tokens.js';
 
 const tableConfig = {
   columnDefault: {
@@ -154,7 +158,6 @@ function parseTestData(testData){
 
 }
 
-
 // Test Functions
 
 async function getBalance(rpcUrl, userAddress){
@@ -207,6 +210,27 @@ async function getContractValue(rpcUrl, add){
   }
 }
 
+async function runMulticall(rpcUrl, add){
+
+  try {
+    let provider = new ethers.providers.JsonRpcProvider(rpcUrl);
+
+    const balances = await getBalancesForEthereumAddress({
+      contractAddresses: tokenList.map(e=>e.address),
+      ethereumAddress: add,
+      providerOptions: {
+        ethersProvider: provider,
+      },
+    });
+
+    return balances;
+
+  } catch (error) {
+    return false
+  }
+
+}
+
 async function bench(args){
 
   if (args.mode == 'sequential'){
@@ -224,7 +248,7 @@ async function bench(args){
 
     let promiseArray = [];
 
-    for(rpcName in rpcs){
+    for(let rpcName in rpcs){
       const rpcUrl = rpcs[rpcName];
       promiseArray.push(testRunner(rpcName, testdata, getBalance, rpcUrl))
     }
@@ -242,7 +266,7 @@ async function bench(args){
 
     promiseArray = [];
 
-    for(rpcName in rpcs){
+    for(let rpcName in rpcs){
       const rpcUrl = rpcs[rpcName];
       promiseArray.push(testRunner(rpcName, testdata, getContractValue, rpcUrl))
     }
@@ -257,6 +281,22 @@ async function bench(args){
       tableConfig
     ));
 
+    promiseArray = [];
+
+    for(let rpcName in rpcs){
+      const rpcUrl = rpcs[rpcName];
+      promiseArray.push(testRunner(rpcName, testdata, runMulticall, rpcUrl))
+    }
+
+    results = await Promise.allSettled(promiseArray);
+    results = results.map(e=>e?.value);
+    results = parseTestData(results);
+
+    console.log(`### Benchmarking 'multicall' with ${tokenList.length} Tokens`);
+    console.log(table(
+      [tableHeader].concat(results),
+      tableConfig
+    ));
 
   }
   else if (args.mode == 'parallel'){
@@ -265,7 +305,7 @@ async function bench(args){
 
 }
 
-require('yargs')
+yargs(hideBin(process.argv))
   .scriptName("rpc-bench")
   .usage('$0 <cmd> [args]')
   .command('bench', 'Benchmark RPC Endpoints', (yargs) => {

@@ -2,6 +2,7 @@
   "name": "rpc-bench",
   "version": "1.0.0",
   "description": "",
+  "type":"module",
   "main": "rpc-bench.js",
   "scripts": {
     "benchQuick": "node ./rpc-bench.js bench -t testdataHalf.json",
@@ -12,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.3",
+    "ethereum-erc20-token-balances-multicall": "^1.0.2",
     "ethers": "^5.7.2",
     "table": "^6.8.1",
     "yargs": "^17.6.2"
