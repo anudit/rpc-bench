@@ -1,4 +1,5 @@
 {
+    "blockpi": "https://ethereum.blockpi.network/v1/rpc/73dccac3b667c243b72205abf8ec354be33ad962",
     "llama": "https://eth.llamarpc.com/rpc/01GN04VPE4RTRF8NH87ZP86K24",
     "infura": "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
     "bloxroute": "https://virginia.rpc.blxrbdn.com",
@@ -13,11 +14,9 @@
     "blast": "https://eth-mainnet.public.blastapi.io",
     "bitstack": "https://api.bitstack.com/v1/wNFxbiJyQsSeLrX8RRCHi7NpRxrlErZk/DjShIqLishPCTB9HiMkPHXjUM9CNM9Na/ETH/mainnet",
     "publicnode": "https://ethereum.publicnode.com",
-    "zeeve":"https://app.zeeve.io/shared-api/eth/cc36a476b86283e39918618ff4edaea8f014593789a8c673/",
     "rivet":"https://e51578b861cb426c885fa91e9286f2d8.eth.rpc.rivet.cloud/",
     "nodereal":"https://eth-mainnet.nodereal.io/v1/03e4794ab75041e98d21c5fa5195d4f4",
-    "getblock":"https://eth.getblock.io/8387f579-be95-4e1f-91b4-655d7d6001bb/mainnet/",
     "bloq":"https://eth.connect.bloq.cloud/v1/civil-fiscal-feed",
     "blockvision": "https://eth-mainnet.blockvision.org/v1/2JVKokRHuahBnQ5RfVkgzPV62ac",
-    "blockpi": "https://ethereum.blockpi.network/v1/rpc/73dccac3b667c243b72205abf8ec354be33ad962"
+    "kriptonio": "https://rpc.kriptonio.com/v1/endpoints/ethereum/mainnet/4DJalPOZvsyUZPEoBPUlNJ4J"
 }
