@@ -163,12 +163,19 @@ function parseTestData(testData){
 async function getBalance(rpcUrl, userAddress){
   try {
 
+    let headers = {
+      "accept": "*/*",
+      "content-type": "application/json",
+    }
+    if (rpcUrl.includes('@')) {
+      let rUrl = new URL(rpcUrl);
+      rpcUrl = rUrl.origin + rUrl.pathname;
+      headers['Authorization']=`Basic ${btoa(rUrl.username + ':' + rUrl.password)}`;
+    }
+
     let balance = await fetch(rpcUrl, {
       "method": "POST",
-      "headers": {
-        "accept": "*/*",
-        "content-type": "application/json",
-      },
+      "headers": headers,
       "body": JSON.stringify({
         id: 44,
         jsonrpc: "2.0",
@@ -187,12 +194,20 @@ async function getBalance(rpcUrl, userAddress){
 async function getContractValue(rpcUrl, add){
   try {
 
+    let headers = {
+      "accept": "*/*",
+      "content-type": "application/json",
+    }
+
+    if (rpcUrl.includes('@')) {
+      let rUrl = new URL(rpcUrl);
+      rpcUrl = rUrl.origin + rUrl.pathname;
+      headers['Authorization']=`Basic ${btoa(rUrl.username + ':' + rUrl.password)}`;
+    }
+
     let data = await fetch(rpcUrl, {
       "method": "POST",
-      "headers": {
-        "accept": "*/*",
-        "content-type": "application/json",
-      },
+      "headers": headers,
       "body": JSON.stringify({
         id: 44,
         jsonrpc: "2.0",
@@ -346,4 +361,3 @@ yargs(hideBin(process.argv))
   })
   .help()
   .argv
-
