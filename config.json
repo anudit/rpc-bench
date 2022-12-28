@@ -1,4 +1,5 @@
 {
+    "chainstack": "https://nd-083-070-972.p2pify.com/fa2e0551fdda60e8cf2096c095880bde",
     "blockpi": "https://ethereum.blockpi.network/v1/rpc/73dccac3b667c243b72205abf8ec354be33ad962",
     "llama": "https://eth.llamarpc.com/rpc/01GN04VPE4RTRF8NH87ZP86K24",
     "infura": "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
@@ -18,5 +19,6 @@
     "nodereal":"https://eth-mainnet.nodereal.io/v1/03e4794ab75041e98d21c5fa5195d4f4",
     "bloq":"https://eth.connect.bloq.cloud/v1/civil-fiscal-feed",
     "blockvision": "https://eth-mainnet.blockvision.org/v1/2JVKokRHuahBnQ5RfVkgzPV62ac",
-    "kriptonio": "https://rpc.kriptonio.com/v1/endpoints/ethereum/mainnet/4DJalPOZvsyUZPEoBPUlNJ4J"
+    "kriptonio": "https://rpc.kriptonio.com/v1/endpoints/ethereum/mainnet/4DJalPOZvsyUZPEoBPUlNJ4J",
+    "coinbase": "https://6GF4VXZHHAVCOHGZSPIG:VKBYBIUVTKM7LPI22N2DJ7NO2MOH2LBIGBCZE2RB@mainnet.ethereum.coinbasecloud.net"
 }
