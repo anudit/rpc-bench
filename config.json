@@ -17,7 +17,6 @@
     "publicnode": "https://ethereum.publicnode.com",
     "rivet":"https://e51578b861cb426c885fa91e9286f2d8.eth.rpc.rivet.cloud/",
     "nodereal":"https://eth-mainnet.nodereal.io/v1/03e4794ab75041e98d21c5fa5195d4f4",
-    "bloq":"https://eth.connect.bloq.cloud/v1/civil-fiscal-feed",
     "blockvision": "https://eth-mainnet.blockvision.org/v1/2JVKokRHuahBnQ5RfVkgzPV62ac",
     "kriptonio": "https://rpc.kriptonio.com/v1/endpoints/ethereum/mainnet/4DJalPOZvsyUZPEoBPUlNJ4J",
     "coinbase": "https://6GF4VXZHHAVCOHGZSPIG:VKBYBIUVTKM7LPI22N2DJ7NO2MOH2LBIGBCZE2RB@mainnet.ethereum.coinbasecloud.net"
