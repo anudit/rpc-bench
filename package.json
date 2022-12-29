@@ -5,7 +5,7 @@
   "type":"module",
   "main": "rpc-bench.js",
   "scripts": {
-    "benchQuick": "node ./rpc-bench.js bench -t testdataHalf.json",
+    "benchQuick": "node ./rpc-bench.js bench -t testdataHalf.json -c configQuick.json",
     "bench": "node ./rpc-bench.js bench"
   },
   "keywords": [],

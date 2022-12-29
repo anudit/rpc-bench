@@ -70,6 +70,34 @@ async function testRunner(name, addresses, fn, rpc){
   return retData
 }
 
+async function testRunner2(name, fn, rpc){
+
+  let total = 1;
+  let success = 0;
+  let startTime = Date.now();
+
+  let resp = await fn.apply(this, [rpc]);
+
+  if (resp) {
+    success += 1
+  }
+
+  let endTime = Date.now();
+
+  let retData = {
+    name,
+    success,
+    startTime,
+    endTime,
+    total,
+    avgTime: (endTime - startTime)/total
+  }
+
+  console.log(`🟢 ${name}/${fn?.name} Complete.`, retData?.avgTime);
+
+  return retData
+}
+
 function randomPriceFeedContract(){
   let arr = [
     "0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8",
@@ -246,6 +274,47 @@ async function runMulticall(rpcUrl, add){
 
 }
 
+async function testGetLogs(rpcUrl){
+  try {
+
+    let headers = {
+      "accept": "*/*",
+      "content-type": "application/json",
+    }
+
+    if (rpcUrl.includes('@')) {
+      let rUrl = new URL(rpcUrl);
+      rpcUrl = rUrl.origin + rUrl.pathname;
+      headers['Authorization']=`Basic ${btoa(rUrl.username + ':' + rUrl.password)}`;
+    }
+
+    let data = await fetch(rpcUrl, {
+      "method": "POST",
+      "headers": headers,
+      "body": JSON.stringify({
+        id: 44,
+        jsonrpc: "2.0",
+        method: "eth_getLogs",
+        params: [
+          {
+              "topics": [
+                  "0x783cca1c0412dd0d695e784568c96da2e9c22ff989357a2e8b1d9b2b4e6b7118",
+                  "0x000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+              ],
+              "fromBlock": "0xF116C0", // 15,800,000
+              "toBlock": "latest",
+              "address": "0x1F98431c8aD98523631AE4a59f267346ea31F984"
+          }
+        ]
+      })
+    }).then(e=>e.json()).then(e=>e.result);
+    // console.log('got res', data.length)
+    return data.length>0;
+  } catch (error) {
+    return false;
+  }
+}
+
 async function bench(args){
 
   if (args.mode == 'sequential'){
@@ -259,6 +328,9 @@ async function bench(args){
     testdata = JSON.parse(testdata);
     testdata = testdata.map(e=>e?.address);
     console.log('Test Data Size:', testdata.length);
+
+
+
 
 
     let promiseArray = [];
@@ -279,6 +351,9 @@ async function bench(args){
     ));
 
 
+
+
+
     promiseArray = [];
 
     for(let rpcName in rpcs){
@@ -296,6 +371,30 @@ async function bench(args){
       tableConfig
     ));
 
+
+
+
+
+    promiseArray = [];
+
+    for(let rpcName in rpcs){
+      const rpcUrl = rpcs[rpcName];
+      promiseArray.push(testRunner2(rpcName, testGetLogs, rpcUrl))
+    }
+
+    results = await Promise.allSettled(promiseArray);
+    results = results.map(e=>e?.value);
+    results = parseTestData(results);
+
+    console.log(`### Benchmarking 'eth_getLogs', Fetching ETH Uniswap Pools (last 500k Blocks)`);
+    console.log(table(
+      [tableHeader].concat(results),
+      tableConfig
+    ));
+
+
+
+
     promiseArray = [];
 
     for(let rpcName in rpcs){
@@ -312,6 +411,7 @@ async function bench(args){
       [tableHeader].concat(results),
       tableConfig
     ));
+
 
   }
   else if (args.mode == 'parallel'){
