@@ -65,7 +65,7 @@ async function testRunner(name, addresses, fn, rpc){
     avgTime: (endTime - startTime)/total
   }
 
-  console.log(`🟢 ${name}/${fn?.name} Complete.`, retData?.avgTime);
+  console.log(`🟢 ${name}/${fn?.name} Test Complete.`, retData?.avgTime);
 
   return retData
 }
@@ -184,6 +184,11 @@ function parseTestData(testData){
     return [`#${ind+1}`].concat(arr);
   })
 
+}
+
+async function getLocationData(){
+  let data = await fetch('http://ip-api.com/json/').then(e=>e.json());
+  return data;
 }
 
 // Test Functions
@@ -307,15 +312,26 @@ async function testGetLogs(rpcUrl){
           }
         ]
       })
-    }).then(e=>e.json()).then(e=>e.result);
+    }).then(e=>e.json());;
+
+    if (data?.result){
+      return data?.result.length>0;
+    }
+    else {
+      console.log('error', rpcUrl, data?.error?.message)
+      return false;
+    }
     // console.log('got res', data.length)
-    return data.length>0;
   } catch (error) {
     return false;
   }
 }
 
 async function bench(args){
+
+
+  let locData = await getLocationData();
+  console.log(locData);
 
   if (args.mode == 'sequential'){
 
