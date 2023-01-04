@@ -20,5 +20,6 @@
     "blockvision": "https://eth-mainnet.blockvision.org/v1/2JVKokRHuahBnQ5RfVkgzPV62ac",
     "kriptonio": "https://rpc.kriptonio.com/v1/endpoints/ethereum/mainnet/4DJalPOZvsyUZPEoBPUlNJ4J",
     "coinbase": "https://6GF4VXZHHAVCOHGZSPIG:VKBYBIUVTKM7LPI22N2DJ7NO2MOH2LBIGBCZE2RB@mainnet.ethereum.coinbasecloud.net",
-    "securerpc": "https://api.securerpc.com/v1"
+    "securerpc": "https://api.securerpc.com/v1",
+    "tenderly": "https://mainnet.gateway.tenderly.co/1OmhjRRqw933O13UPfYR5H"
 }
