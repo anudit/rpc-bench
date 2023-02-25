@@ -6,7 +6,7 @@ Head to [https://console.cloud.google.com/bigquery](https://console.cloud.google
 
 ```sql
 -- The code checks if the balance is > 0 so make sure to keep eth_balance atleast > 0
-SELECT * FROM `bigquery-public-data.crypto_ethereum.balances`  WHERE eth_balance > 1000000000000000000 LIMIT 10000
+SELECT * FROM `bigquery-public-data.crypto_ethereum.balances`  WHERE eth_balance > 1000000000000000000 LIMIT 1000
 ```
 
 Save it to `testdata.json`

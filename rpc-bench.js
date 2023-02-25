@@ -266,6 +266,7 @@ async function runMulticall(rpcUrl, add){
     const balances = await getBalancesForEthereumAddress({
       contractAddresses: tokenList.map(e=>e.address),
       ethereumAddress: add,
+      formatBalances: true,
       providerOptions: {
         ethersProvider: provider,
       },
@@ -312,7 +313,7 @@ async function testGetLogs(rpcUrl){
           }
         ]
       })
-    }).then(e=>e.json());;
+    }).then(e=>e.json());
 
     if (data?.result){
       return data?.result.length>0;

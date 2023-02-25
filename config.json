@@ -1,6 +1,7 @@
 {
-    "lavanet": "https://endpoints-testnet-1.lavanet.xyz:443/gateway/eth/rpc-http/b05a8abc83e1e2aecd10231cc08bbb49",
-    "chainstack": "https://nd-083-070-972.p2pify.com/fa2e0551fdda60e8cf2096c095880bde",
+    "coinsdo": "https://rpc.coinsdo.com/eth",
+    "getblock": "https://eth.getblock.io/413e30c9-7f77-4339-91a2-bc4535ddd9aa/mainnet/",
+    "chainnodes": "https://mainnet.chainnodes.org/92da4f6b-2564-4ace-b50d-5311a1bc40bb",
     "blockpi": "https://ethereum.blockpi.network/v1/rpc/73dccac3b667c243b72205abf8ec354be33ad962",
     "llama": "https://eth.llamarpc.com/rpc/01GN04VPE4RTRF8NH87ZP86K24",
     "infura": "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
@@ -18,6 +19,7 @@
     "publicnode": "https://ethereum.publicnode.com",
     "rivet":"https://e51578b861cb426c885fa91e9286f2d8.eth.rpc.rivet.cloud/",
     "nodereal":"https://eth-mainnet.nodereal.io/v1/03e4794ab75041e98d21c5fa5195d4f4",
+    "lavanet": "https://endpoints-testnet-1.lavanet.xyz:443/gateway/eth/rpc-http/b05a8abc83e1e2aecd10231cc08bbb49",
     "blockvision": "https://eth-mainnet.blockvision.org/v1/2JVKokRHuahBnQ5RfVkgzPV62ac",
     "kriptonio": "https://rpc.kriptonio.com/v1/endpoints/ethereum/mainnet/4DJalPOZvsyUZPEoBPUlNJ4J",
     "securerpc": "https://api.securerpc.com/v1",

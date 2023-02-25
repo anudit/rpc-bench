@@ -2,7 +2,7 @@
   "name": "rpc-bench",
   "version": "1.0.0",
   "description": "",
-  "type":"module",
+  "type": "module",
   "main": "rpc-bench.js",
   "scripts": {
     "benchQuick": "node ./rpc-bench.js bench -t testdataHalf.json -c configQuick.json",
@@ -16,6 +16,6 @@
     "ethereum-erc20-token-balances-multicall": "^1.0.2",
     "ethers": "^5.7.2",
     "table": "^6.8.1",
-    "yargs": "^17.6.2"
+    "yargs": "^17.7.1"
   }
 }
