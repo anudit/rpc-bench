@@ -15,7 +15,7 @@
     "pokt": "https://eth-mainnet.gateway.pokt.network/v1/lb/f94d5765c128f07051f7798a",
     "1rpc": "https://1rpc.io/eth",
     "blast": "https://eth-mainnet.public.blastapi.io",
-    "bitstack": "https://api.bitstack.com/v1/wNFxbiJyQsSeLrX8RRCHi7NpRxrlErZk/DjShIqLishPCTB9HiMkPHXjUM9CNM9Na/ETH/mainnet",
+    "bitstack": "https://api.bitstack.com/v1/qXqTaNXxPrNTsSLhvmWnemsI5P0GnKnh/3KCObGFKeIZNyLDCg1fxef86yc0FC1sq/ETH/mainnet",
     "publicnode": "https://ethereum.publicnode.com",
     "rivet":"https://e51578b861cb426c885fa91e9286f2d8.eth.rpc.rivet.cloud/",
     "nodereal":"https://eth-mainnet.nodereal.io/v1/03e4794ab75041e98d21c5fa5195d4f4",
