@@ -1,4 +1,6 @@
 {
+    "osm": "https://global.eth.osm.network/horde",
+    "onfinality": "https://eth.api.onfinality.io/rpc?apikey=19e88384-274d-418b-aa7b-f94541973326",
     "coinsdo": "https://rpc.coinsdo.com/eth",
     "getblock": "https://eth.getblock.io/413e30c9-7f77-4339-91a2-bc4535ddd9aa/mainnet/",
     "chainnodes": "https://mainnet.chainnodes.org/92da4f6b-2564-4ace-b50d-5311a1bc40bb",
