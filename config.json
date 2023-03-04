@@ -1,4 +1,5 @@
 {
+    "thirdweb": "https://ethereum.rpc.thirdweb.com",
     "osm": "https://global.eth.osm.network/horde",
     "onfinality": "https://eth.api.onfinality.io/rpc?apikey=19e88384-274d-418b-aa7b-f94541973326",
     "coinsdo": "https://rpc.coinsdo.com/eth",
