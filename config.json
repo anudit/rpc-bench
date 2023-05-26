@@ -24,7 +24,7 @@
   "publicnode": "https://ethereum.publicnode.com",
   "rivet": "https://e51578b861cb426c885fa91e9286f2d8.eth.rpc.rivet.cloud/",
   "nodereal": "https://eth-mainnet.nodereal.io/v1/03e4794ab75041e98d21c5fa5195d4f4",
-  "lavanet": "https://endpoints-testnet-1.lavanet.xyz:443/gateway/eth/rpc-http/b05a8abc83e1e2aecd10231cc08bbb49",
+  "lavanet": "https://g.w.lavanet.xyz:443/gateway/eth/rpc-http/89f5955b3ad71c806c4420efe968414b",
   "blockvision": "https://eth-mainnet.blockvision.org/v1/2JVKokRHuahBnQ5RfVkgzPV62ac",
   "kriptonio": "https://rpc.kriptonio.com/v1/endpoints/ethereum/mainnet/4DJalPOZvsyUZPEoBPUlNJ4J",
   "securerpc": "https://api.securerpc.com/v1",
